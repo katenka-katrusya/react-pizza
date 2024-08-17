@@ -1,0 +1,100 @@
+//@font-face {
+//  font-family: 'Proxima Nova';
+//  src: url('./fonts/ProximaNova-Black.eot');
+//  src: local('./fonts/Proxima Nova Black'), local('ProximaNova-Black'),
+//    url('./fonts/ProximaNova-Black.eot?#iefix') format('embedded-opentype'),
+//    url('./fonts/ProximaNova-Black.woff') format('woff'),
+//    url('./fonts/ProximaNova-Black.ttf') format('truetype');
+//  font-weight: 900;
+//  font-style: normal;
+//}
+//
+//@font-face {
+//  font-family: 'Proxima Nova';
+//  src: url('./fonts/ProximaNova-Bold.eot');
+//  src: local('./fonts/Proxima Nova Bold'), local('ProximaNova-Bold'),
+//    url('./fonts/ProximaNova-Bold.eot?#iefix') format('embedded-opentype'),
+//    url('./fonts/ProximaNova-Bold.woff') format('woff'),
+//    url('./fonts/ProximaNova-Bold.ttf') format('truetype');
+//  font-weight: bold;
+//  font-style: normal;
+//}
+//
+//@font-face {
+//  font-family: 'Proxima Nova';
+//  src: url('./fonts/ProximaNova-Regular.eot');
+//  src: local('./fonts/Proxima Nova Regular'), local('ProximaNova-Regular'),
+//    url('./fonts/ProximaNova-Regular.eot?#iefix') format('embedded-opentype'),
+//    url('./fonts/ProximaNova-Regular.woff') format('woff'),
+//    url('./fonts/ProximaNova-Regular.ttf') format('truetype');
+//  font-weight: normal;
+//  font-style: normal;
+//}
+//
+//@font-face {
+//  font-family: 'Proxima Nova';
+//  src: url('./fonts/ProximaNova-Extrabld.eot');
+//  src: local('./fonts/Proxima Nova Extrabold'), local('ProximaNova-Extrabld'),
+//    url('./fonts/ProximaNova-Extrabld.eot?#iefix') format('embedded-opentype'),
+//    url('./fonts/ProximaNova-Extrabld.woff') format('woff'),
+//    url('./fonts/ProximaNova-Extrabld.ttf') format('truetype');
+//  font-weight: 800;
+//  font-style: normal;
+//}
+
+
+@font-face {
+  font-display: swap;
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 300;
+  src: url('/fonts/nunito-v26-cyrillic_latin-300.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/nunito-v26-cyrillic_latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/fonts/nunito-v26-cyrillic_latin-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 600;
+  src: url('/fonts/nunito-v26-cyrillic_latin-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/nunito-v26-cyrillic_latin-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 800;
+  src: url('/fonts/nunito-v26-cyrillic_latin-800.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 900;
+  src: url('/fonts/nunito-v26-cyrillic_latin-900.woff2') format('woff2');
+}
