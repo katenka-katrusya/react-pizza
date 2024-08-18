@@ -1,31 +1,42 @@
 @import '../variables';
 
 .categories {
-  ul {
-    display: flex;
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  white-space: nowrap;
 
-    li {
-      background-color: #f9f9f9;
-      padding: 13px 30px;
-      border-radius: 30px;
-      margin-right: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.1s ease-in-out;
-      @include noselect();
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 
-      &:hover {
-        background-color: darken(#f9f9f9, 2%);
-      }
+  &__item {
+    @include noselect();
+    padding: 13px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.1s ease-in-out;
 
-      &:active {
-        background-color: darken(#f9f9f9, 5%);
-      }
+    @media (max-width: 650px) {
+      padding: 10px 24px;
+    }
 
-      &.active {
-        background-color: #282828;
-        color: #fff;
-      }
+    &:hover {
+      background-color: darken(#f9f9f9, 2%);
+    }
+
+    &:active {
+      background-color: darken(#f9f9f9, 5%);
+    }
+
+    &.active {
+      background-color: #282828;
+      color: #fff;
     }
   }
 }

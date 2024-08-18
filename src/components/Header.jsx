@@ -1,17 +1,21 @@
- export const Header = () => {
+import { Link } from 'react-router-dom';
+
+export const Header = () => {
   return (
     <div className='header'>
       <div className='container'>
-        <div className='header__logo'>
-          <img width='38' src='img/pizza-logo.svg' alt='Pizza logo' />
-          <div>
-            <h1>React Pizza</h1>
-            <p>самая вкусная пицца во вселенной</p>
+        <Link to='/' className='header__link-logo'>
+          <div className='header__logo'>
+            <img width='38' src='img/pizza-logo.svg' alt='Pizza logo' />
+            <div>
+              <h1>Pizza</h1>
+              <p>самая вкусная пицца во&nbsp;вселенной</p>
+            </div>
           </div>
-        </div>
+        </Link>
         <div className='header__cart'>
-          <a href='/cart.html' className='button button--cart'>
-            <span>520 ₽</span>
+          <Link to='/cart' className='button button--cart'>
+            <span>520&nbsp;₽</span>
             <div className='button__delimiter'></div>
             <svg
               width='18'
@@ -43,9 +47,9 @@
               />
             </svg>
             <span>3</span>
-          </a>
+          </Link>
         </div>
       </div>
     </div>
-  )
- }
+  );
+};
