@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Search } from '@/components/Search/Search.jsx';
 
-export const Header = () => {
+export const Header = ({ onSearch }) => {
   return (
     <div className='header'>
       <div className='container'>
@@ -15,7 +15,7 @@ export const Header = () => {
           </div>
         </Link>
 
-        <Search />
+        <Search onSearch={onSearch} />
 
         <div className='header__cart'>
           <Link to='/cart' className='button button--cart'>

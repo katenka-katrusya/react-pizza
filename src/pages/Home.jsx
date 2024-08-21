@@ -4,6 +4,7 @@ import { Categories } from '@/components/Categories.jsx';
 import { Sort } from '@/components/Sort.jsx';
 import { SkeletonLoader } from '@/components/PizzaItem/SkeletonLoader.jsx';
 import { PizzaBlock } from '@/components/PizzaItem/PizzaBlock.jsx';
+import { useOutletContext } from 'react-router-dom';
 
 export const Home = () => {
   const [items, setItems] = useState([]);
@@ -15,18 +16,24 @@ export const Home = () => {
     sortProperty: 'rating',
   });
 
+  const {search} = useOutletContext();
+
+  const filterItems = items.filter(item =>
+    item.title.toLowerCase().includes(search.toLowerCase())
+  );
+
   useEffect(() => {
     setIsLoading(true);
 
     const fetchData = async () => {
       try {
-        const url = new URL('https://66bf2d2b42533c4031455133.mockapi.io/items');
+        const url = new URL('http://localhost:3000/items');
 
         if (categoryId > 0) {
           url.searchParams.append('category', `${categoryId}`);
         }
-        url.searchParams.append('sortBy', `${sortType.sortProperty}`);
-        url.searchParams.append('order', `${sortOrder ? 'asc' : 'desc'}`);
+
+        url.searchParams.append('_sort', `${sortOrder ? sortType.sortProperty : '-' + sortType.sortProperty}`);
 
         const response = await fetch(url);
         const data = await response.json();
@@ -57,7 +64,7 @@ export const Home = () => {
       <div className='content__items'>
         {isLoading
          ? (Array(6).fill(null).map((_, index) => <SkeletonLoader key={index} />))
-         : (items?.map(pizza => <PizzaBlock key={pizza.id} {...pizza} />))
+         : (filterItems?.map(pizza => <PizzaBlock key={pizza.id} {...pizza} />))
         }
       </div>
     </div>
