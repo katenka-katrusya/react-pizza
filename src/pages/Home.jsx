@@ -16,11 +16,11 @@ export const Home = () => {
     sortProperty: 'rating',
   });
 
-  const {search} = useOutletContext();
+  // const {search} = useOutletContext();
 
-  const filterItems = items.filter(item =>
-    item.title.toLowerCase().includes(search.toLowerCase())
-  );
+  // const filterItems = items.filter(item =>
+  //   item.title.toLowerCase().includes(search.toLowerCase())
+  // );
 
   useEffect(() => {
     setIsLoading(true);
@@ -64,7 +64,7 @@ export const Home = () => {
       <div className='content__items'>
         {isLoading
          ? (Array(6).fill(null).map((_, index) => <SkeletonLoader key={index} />))
-         : (filterItems?.map(pizza => <PizzaBlock key={pizza.id} {...pizza} />))
+         : (items?.map(pizza => <PizzaBlock key={pizza.id} {...pizza} />))
         }
       </div>
     </div>
