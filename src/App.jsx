@@ -9,11 +9,9 @@ function App() {
 
   return (
     <div className='wrapper'>
-      {/*<Header onSearch={(value) => setSearch(value)} />*/}
       <Header searchValue={searchValue} setSearchValue={setSearchValue} />
       <div className='content'>
-        {/*<Outlet context={{ search }}/>*/}
-        <Outlet />
+        <Outlet context={{searchValue}} />
       </div>
     </div>
   );

@@ -15,7 +15,6 @@ export const Header = ({ searchValue, setSearchValue }) => {
           </div>
         </Link>
 
-        {/*<Search onSearch={onSearch} />*/}
         <Search searchValue={searchValue} setSearchValue={setSearchValue} />
 
         <div className='header__cart'>
