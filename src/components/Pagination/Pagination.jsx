@@ -1,7 +1,7 @@
 import s from './Pagination.module.scss'
 import ReactPaginate from 'react-paginate';
 
-export const Pagination = ({onChangeCurrentPage, totalPages, rangeItems}) => {
+export const Pagination = ({onChangeCurrentPage, totalPages, pizzasPerPage}) => {
   return (
     <ReactPaginate
       className={s.pagination}
@@ -9,7 +9,7 @@ export const Pagination = ({onChangeCurrentPage, totalPages, rangeItems}) => {
       nextLabel=">"
       previousLabel="<"
       onPageChange={e => onChangeCurrentPage(e.selected + 1)}
-      pageRangeDisplayed={rangeItems}
+      pageRangeDisplayed={pizzasPerPage}
       pageCount={totalPages}
       renderOnZeroPageCount={null}
     />

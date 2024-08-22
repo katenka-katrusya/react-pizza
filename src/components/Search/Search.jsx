@@ -1,6 +1,10 @@
 import s from './Search.module.scss';
+import { useContext } from 'react';
+import { SearchContext } from '@/App.jsx';
 
-export const Search = ({ searchValue, setSearchValue }) => {
+export const Search = () => {
+  const {searchValue, setSearchValue} = useContext(SearchContext)
+
   return (
     <div className={s.wrapper}>
       <svg className={s.icon} clipRule='evenodd' fillRule='evenodd' strokeLinejoin='round' strokeMiterlimit='2'

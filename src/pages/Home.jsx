@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { Categories } from '@/components/Categories.jsx';
 import { Sort } from '@/components/Sort.jsx';
 import { SkeletonLoader } from '@/components/PizzaItem/SkeletonLoader.jsx';
 import { PizzaBlock } from '@/components/PizzaItem/PizzaBlock.jsx';
-import { useOutletContext } from 'react-router-dom';
 import { Pagination } from '@/components/Pagination/Pagination.jsx';
+import { SearchContext } from '@/App.jsx';
 
 export const Home = () => {
+  const {searchValue} = useContext(SearchContext);
   const [allItems, setAllItems] = useState([]);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -19,8 +20,14 @@ export const Home = () => {
     name: 'популярности',
     sortProperty: 'rating',
   });
-  const { searchValue } = useOutletContext();
-  const rangeItems = 4;
+  const pizzasPerPage = 4;
+  
+  const skeletons = Array(6).fill(null).map((_, index) => <SkeletonLoader key={index} />)
+  // если поисковая строка не пустая, используем отдельно запрошенный весь массив с сервера
+  const filterItems = searchValue
+                      ? allItems.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+                      : items;
+  const pizzas = filterItems?.map(pizza => <PizzaBlock key={pizza.id} {...pizza} />)
 
   useEffect(() => {
     setIsLoading(true);
@@ -37,7 +44,7 @@ export const Home = () => {
         // сортировка и пагинация
         url.searchParams.append('_sort', `${sortOrder ? sortType.sortProperty : '-' + sortType.sortProperty}`);
         url.searchParams.append('_page', `${currentPage}`);
-        url.searchParams.append('_per_page', `${rangeItems}`);
+        url.searchParams.append('_per_page', `${pizzasPerPage}`);
 
         const response = await fetch(url);
         const data = await response.json();
@@ -48,7 +55,6 @@ export const Home = () => {
         console.log(`Error fetching data: ${error}`);
       }
     };
-
     fetchData();
 
     // window.scrollTo(0, 0);
@@ -71,16 +77,6 @@ export const Home = () => {
     }
   }, [searchValue]);
 
-  const skeletons = Array(6).fill(null).map((_, index) => <SkeletonLoader key={index} />)
-
-  // если поисковая строка не пустая, используем отдельно запрошенный весь массив с сервера
-  const filterItems = searchValue
-                      ? allItems.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-                      : items;
-
-  const pizzas = filterItems?.map(pizza => <PizzaBlock key={pizza.id} {...pizza} />)
-
-
   return (
     <div className='container'>
       <div className='content__top'>
@@ -100,7 +96,7 @@ export const Home = () => {
       <Pagination
         onChangeCurrentPage={number => setCurrentPage(number)}
         totalPages={totalPages}
-        rangeItems={rangeItems}
+        pizzasPerPage={pizzasPerPage}
       />
     </div>
   )
