@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Categories } from '@/components/Categories.jsx';
 import { Sort } from '@/components/Sort.jsx';
@@ -6,28 +7,26 @@ import { SkeletonLoader } from '@/components/PizzaItem/SkeletonLoader.jsx';
 import { PizzaBlock } from '@/components/PizzaItem/PizzaBlock.jsx';
 import { Pagination } from '@/components/Pagination/Pagination.jsx';
 import { SearchContext } from '@/App.jsx';
+import { setCategoryIndex } from '@/redux/slices/filterSlice.js';
 
 export const Home = () => {
-  const {searchValue} = useContext(SearchContext);
+  const { categoryIndex, sortType, sortOrder } = useSelector(state => state.filter);
+  const dispatch = useDispatch();
+
+  const { searchValue } = useContext(SearchContext);
   const [allItems, setAllItems] = useState([]);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [categoryId, setCategoryId] = useState(0);
-  const [sortOrder, setSortOrder] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [sortType, setSortType] = useState({
-    name: 'популярности',
-    sortProperty: 'rating',
-  });
   const pizzasPerPage = 4;
-  
-  const skeletons = Array(6).fill(null).map((_, index) => <SkeletonLoader key={index} />)
+
+  const skeletons = Array(6).fill(null).map((_, index) => <SkeletonLoader key={index} />);
   // если поисковая строка не пустая, используем отдельно запрошенный весь массив с сервера
   const filterItems = searchValue
                       ? allItems.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
                       : items;
-  const pizzas = filterItems?.map(pizza => <PizzaBlock key={pizza.id} {...pizza} />)
+  const pizzas = filterItems?.map(pizza => <PizzaBlock key={pizza.id} {...pizza} />);
 
   useEffect(() => {
     setIsLoading(true);
@@ -37,8 +36,8 @@ export const Home = () => {
         const url = new URL('http://localhost:3000/items');
 
         // 0 категория - это все пиццы
-        if (categoryId > 0) {
-          url.searchParams.append('category', `${categoryId}`);
+        if (categoryIndex > 0) {
+          url.searchParams.append('category', `${categoryIndex}`);
         }
 
         // сортировка и пагинация
@@ -58,13 +57,13 @@ export const Home = () => {
     fetchData();
 
     // window.scrollTo(0, 0);
-  }, [categoryId, sortType, sortOrder, currentPage]);
+  }, [categoryIndex, sortType, sortOrder, currentPage]);
 
   // Запрашиваем отдельно массив с сервера, т.к. из-за либы пагинации не отдает весь массив, а только текущую
   // страницу, поиск будет по всем страницам на клиенте, т.к. в json-server нет поиска в посл. версии.
   useEffect(() => {
     if (searchValue) {
-      const fetchAllData = async() => {
+      const fetchAllData = async () => {
         try {
           const response = await fetch('http://localhost:3000/items');
           const data = await response.json();
@@ -72,7 +71,7 @@ export const Home = () => {
         } catch (error) {
           console.log(`Error fetching all data: ${error}`);
         }
-      }
+      };
       fetchAllData();
     }
   }, [searchValue]);
@@ -81,12 +80,9 @@ export const Home = () => {
     <div className='container'>
       <div className='content__top'>
         <Categories
-          value={categoryId}
-          onClickCategory={(i) => setCategoryId(i)} />
-        <Sort
-          value={sortType}
-          onClickSortType={(i) => setSortType(i)}
-          onClickOrder={(sortOrder) => setSortOrder(sortOrder)} />
+          value={categoryIndex}
+          onClickCategory={(i) => dispatch(setCategoryIndex(i))} />
+        <Sort />
       </div>
       <h2 className='content__title'>Все пиццы</h2>
       <div className='content__items'>
@@ -99,5 +95,5 @@ export const Home = () => {
         pizzasPerPage={pizzasPerPage}
       />
     </div>
-  )
-}
+  );
+};

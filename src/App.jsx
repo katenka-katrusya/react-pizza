@@ -1,7 +1,7 @@
 import './scss/app.scss';
-import { Header } from '@/components/Header.jsx';
 import { Outlet} from 'react-router-dom';
 import { createContext, useState } from 'react';
+import { Header } from '@/components/Header.jsx';
 
 export const SearchContext = createContext();
 
@@ -10,8 +10,8 @@ function App() {
 
   return (
     <div className='wrapper'>
-      <SearchContext.Provider value={{searchValue, setSearchValue}}>
-        <Header  />
+      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+        <Header />
         <div className='content'>
           <Outlet />
         </div>
