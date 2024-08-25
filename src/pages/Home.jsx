@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Categories } from '@/components/Categories.jsx';
@@ -7,17 +7,14 @@ import { Sort } from '@/components/Sort.jsx';
 import { SkeletonLoader } from '@/components/PizzaItem/SkeletonLoader.jsx';
 import { PizzaBlock } from '@/components/PizzaItem/PizzaBlock.jsx';
 import { Pagination } from '@/components/Pagination/Pagination.jsx';
-import { SearchContext } from '@/App.jsx';
-import { setCategoryIndex } from '@/redux/slices/filterSlice.js';
+import { setCategoryIndex, setCurrentPage } from '@/redux/slices/filterSlice.js';
 
 export const Home = () => {
-  const { categoryIndex, sortType, sortOrder } = useSelector(state => state.filter);
+  const { categoryIndex, sortType, sortOrder, currentPage, searchValue } = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
-  const { searchValue } = useContext(SearchContext);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const pizzasLimit = 4;
 
@@ -76,7 +73,7 @@ export const Home = () => {
       </div>
 
       <Pagination
-        onChangeCurrentPage={number => setCurrentPage(number)}
+        onChangeCurrentPage={number => dispatch(setCurrentPage(number))}
         totalPages={totalPages}
         pizzasLimit={pizzasLimit}
       />

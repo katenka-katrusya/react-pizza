@@ -1,12 +1,32 @@
 import s from './Search.module.scss';
-import { useContext } from 'react';
-import { SearchContext } from '@/App.jsx';
+import { useCallback, useState } from 'react';
+import debounce from 'lodash.debounce';
+import { useDispatch } from 'react-redux';
+import { setSearchValue } from '@/redux/slices/filterSlice.js';
 
 export const Search = () => {
-  const {searchValue, setSearchValue} = useContext(SearchContext)
+  const [value, setValue] = useState('');
+  const dispatch = useDispatch();
+
+  const debounceSearch = useCallback(
+    debounce((str) => {
+      dispatch(setSearchValue(str));
+    }, 300),
+    []
+  );
+
+  const onChangeInput = (e) => {
+    setValue(e.target.value);
+    debounceSearch(e.target.value);
+  };
+
+  const onClickClear = () => {
+    dispatch(setSearchValue('')); // очистка в Context
+    setValue(''); // локальная очистка
+  };
 
   return (
-    <div className={s.wrapper}>
+    <label className={s.wrapper}>
       <svg className={s.icon} clipRule='evenodd' fillRule='evenodd' strokeLinejoin='round' strokeMiterlimit='2'
            viewBox='0 0 24 24'
            xmlns='http://www.w3.org/2000/svg'>
@@ -16,14 +36,14 @@ export const Search = () => {
           d='m20.354 19.646-5.759-5.758c-.195-.195-.512-.195-.707 0s-.195.512 0 .707l5.758 5.759c.196.195.512.195.708 0 .195-.196.195-.512 0-.708z' />
       </svg>
       <input
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        value={value}
+        onChange={onChangeInput}
         className={s.search}
         type='text'
         placeholder='Поиск пиццы...' />
 
-      {searchValue &&
-        <button onClick={() => setSearchValue('')} className={s.closeBtn}>
+      {value &&
+        <button onClick={onClickClear} className={s.closeBtn}>
           <svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
             <rect width='24' height='24' fill='white'></rect>
             <path d='M7 17L16.8995 7.10051' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round'></path>
@@ -32,7 +52,6 @@ export const Search = () => {
           </svg>
         </button>
       }
-
-    </div>
+    </label>
   );
 };

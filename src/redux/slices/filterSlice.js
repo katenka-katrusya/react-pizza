@@ -7,6 +7,7 @@ const initialState = {
     sortProperty: 'rating'
   },
   sortOrder: true,
+  currentPage: 1,
   searchValue: '',
 };
 
@@ -23,8 +24,14 @@ const filterSlice = createSlice({
     setSortOrder(state, action) {
       state.sortOrder = action.payload;
     },
+    setCurrentPage(state, action) {
+      state.currentPage = action.payload;
+    },
+    setSearchValue(state, action) {
+      state.searchValue = action.payload;
+    }
   }
 });
 
-export const { setCategoryIndex, setSortType, setSortOrder } = filterSlice.actions;
+export const { setCategoryIndex, setSortType, setSortOrder, setCurrentPage, setSearchValue } = filterSlice.actions;
 export default filterSlice.reducer;
