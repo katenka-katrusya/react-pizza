@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Categories } from '@/components/Categories.jsx';
@@ -19,14 +19,15 @@ export const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const pizzasPerPage = 4;
+  const pizzasLimit = 4;
 
   const skeletons = Array(6).fill(null).map((_, index) => <SkeletonLoader key={index} />);
   // если поисковая строка не пустая, используем отдельно запрошенный весь массив с сервера
   const filterItems = searchValue
                       ? allItems.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
                       : items;
-  const pizzas = filterItems?.map(pizza => <PizzaBlock key={pizza.id} {...pizza} />);
+
+  const pizzas = filterItems.map(pizza => <PizzaBlock key={pizza.id} {...pizza} />);
 
   useEffect(() => {
     setIsLoading(true);
@@ -35,20 +36,32 @@ export const Home = () => {
       try {
         const url = new URL('http://localhost:3000/items');
 
-        // 0 категория - это все пиццы
-        if (categoryIndex > 0) {
-          url.searchParams.append('category', `${categoryIndex}`);
+        if (searchValue) {
+          url.searchParams.append('title_like', `${searchValue}`);
+        } else {
+          // пагинация
+          url.searchParams.append('_page', `${currentPage}`);
+          url.searchParams.append('_limit', `${pizzasLimit}`);
+          // сортировка
+          url.searchParams.append('_sort', `${sortType.sortProperty}`);
+          url.searchParams.append('_order', `${sortOrder ? 'asc' : 'desc'}`);
+          // 0 категория - это все пиццы
+          if (categoryIndex > 0) {
+            url.searchParams.append('category', `${categoryIndex}`);
+          }
         }
-
-        // сортировка и пагинация
-        url.searchParams.append('_sort', `${sortOrder ? sortType.sortProperty : '-' + sortType.sortProperty}`);
-        url.searchParams.append('_page', `${currentPage}`);
-        url.searchParams.append('_per_page', `${pizzasPerPage}`);
 
         const response = await fetch(url);
         const data = await response.json();
-        setItems(data.data);
-        setTotalPages(data.pages);
+
+        if (searchValue) {
+          setAllItems(data);
+        } else {
+          const totalCount = response.headers.get('X-Total-Count');
+          setTotalPages(Math.ceil(totalCount / pizzasLimit));
+          setItems(data);
+        }
+
         setIsLoading(false);
       } catch (error) {
         console.log(`Error fetching data: ${error}`);
@@ -57,24 +70,7 @@ export const Home = () => {
     fetchData();
 
     // window.scrollTo(0, 0);
-  }, [categoryIndex, sortType, sortOrder, currentPage]);
-
-  // Запрашиваем отдельно массив с сервера, т.к. из-за либы пагинации не отдает весь массив, а только текущую
-  // страницу, поиск будет по всем страницам на клиенте, т.к. в json-server нет поиска в посл. версии.
-  useEffect(() => {
-    if (searchValue) {
-      const fetchAllData = async () => {
-        try {
-          const response = await fetch('http://localhost:3000/items');
-          const data = await response.json();
-          setAllItems(data); // весь массив данных
-        } catch (error) {
-          console.log(`Error fetching all data: ${error}`);
-        }
-      };
-      fetchAllData();
-    }
-  }, [searchValue]);
+  }, [categoryIndex, sortType, sortOrder, currentPage, searchValue]);
 
   return (
     <div className='container'>
@@ -92,7 +88,7 @@ export const Home = () => {
       <Pagination
         onChangeCurrentPage={number => setCurrentPage(number)}
         totalPages={totalPages}
-        pizzasPerPage={pizzasPerPage}
+        pizzasLimit={pizzasLimit}
       />
     </div>
   );
