@@ -1,4 +1,5 @@
-import { useContext, useEffect, useMemo, useState } from 'react';
+import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Categories } from '@/components/Categories.jsx';
@@ -14,7 +15,6 @@ export const Home = () => {
   const dispatch = useDispatch();
 
   const { searchValue } = useContext(SearchContext);
-  const [allItems, setAllItems] = useState([]);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,46 +22,36 @@ export const Home = () => {
   const pizzasLimit = 4;
 
   const skeletons = Array(6).fill(null).map((_, index) => <SkeletonLoader key={index} />);
-  // если поисковая строка не пустая, используем отдельно запрошенный весь массив с сервера
-  const filterItems = searchValue
-                      ? allItems.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-                      : items;
-
-  const pizzas = filterItems.map(pizza => <PizzaBlock key={pizza.id} {...pizza} />);
+  const pizzas = items.map(pizza => <PizzaBlock key={pizza.id} {...pizza} />);
 
   useEffect(() => {
     setIsLoading(true);
 
     const fetchData = async () => {
       try {
-        const url = new URL('http://localhost:3000/items');
+        const url = 'http://localhost:3000/items';
+        const params = {};
 
-        if (searchValue) {
-          url.searchParams.append('title_like', `${searchValue}`);
-        } else {
-          // пагинация
-          url.searchParams.append('_page', `${currentPage}`);
-          url.searchParams.append('_limit', `${pizzasLimit}`);
-          // сортировка
-          url.searchParams.append('_sort', `${sortType.sortProperty}`);
-          url.searchParams.append('_order', `${sortOrder ? 'asc' : 'desc'}`);
-          // 0 категория - это все пиццы
-          if (categoryIndex > 0) {
-            url.searchParams.append('category', `${categoryIndex}`);
-          }
+        // поиск
+        params.title_like = searchValue;
+        //   пагинация
+        params._page = currentPage;
+        params._limit = pizzasLimit;
+        // сортировка
+        params._sort = sortType.sortProperty;
+        params._order = sortOrder ? 'asc' : 'desc';
+        // выбор категории. 0 категория - это все пиццы
+        if (categoryIndex > 0) {
+          params.category = categoryIndex;
         }
 
-        const response = await fetch(url);
-        const data = await response.json();
+        const response = await axios.get(url, { params });
+        const data = response.data;
 
-        if (searchValue) {
-          setAllItems(data);
-        } else {
-          const totalCount = response.headers.get('X-Total-Count');
-          setTotalPages(Math.ceil(totalCount / pizzasLimit));
-          setItems(data);
-        }
+        const totalCount = response.headers['x-total-count'];
+        setTotalPages(Math.ceil(totalCount / pizzasLimit));
 
+        setItems(data);
         setIsLoading(false);
       } catch (error) {
         console.log(`Error fetching data: ${error}`);
