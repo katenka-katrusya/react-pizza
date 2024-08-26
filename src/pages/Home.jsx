@@ -55,7 +55,6 @@ export const Home = () => {
       }
     };
     fetchData();
-
     // window.scrollTo(0, 0);
   }, [categoryIndex, sortType, sortOrder, currentPage, searchValue]);
 

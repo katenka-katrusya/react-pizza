@@ -29,9 +29,16 @@ const filterSlice = createSlice({
     },
     setSearchValue(state, action) {
       state.searchValue = action.payload;
-    }
+    },
+    // setFilters(state, action) {
+    //   state.currentPage = Number(action.payload.currentPage);
+    //   state.categoryIndex = Number(action.payload.categoryIndex);
+    //   state.sortType = action.payload.sortType;
+    //   state.sortOrder = Boolean(action.payload.sortOrder);
+    //   state.searchValue = action.payload.searchValue;
+    // }
   }
 });
 
-export const { setCategoryIndex, setSortType, setSortOrder, setCurrentPage, setSearchValue } = filterSlice.actions;
+export const { setCategoryIndex, setSortType, setSortOrder, setCurrentPage, setSearchValue, setFilters } = filterSlice.actions;
 export default filterSlice.reducer;
