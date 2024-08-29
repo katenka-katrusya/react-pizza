@@ -68,7 +68,9 @@ body {
 
   &--cart {
     max-width: 820px;
-    margin: 90px auto;
+    //margin: 90px auto;
+    padding: 50px;
+
     .content__title {
       margin: 0;
     }
@@ -111,6 +113,8 @@ body {
     display: flex;
     align-items: center;
     gap: 7px;
+    border: none;
+    background-color: transparent;
     cursor: pointer;
     @include noselect();
 
@@ -212,6 +216,8 @@ body {
       align-items: center;
       justify-content: flex-end;
       width: 4%;
+      border: none;
+      background-color: transparent;
 
       .button {
         border-color: darken($color: $gray-line, $amount: 10);
@@ -241,8 +247,6 @@ body {
   }
 
   &__bottom {
-    //margin-bottom: 50px;
-
     &-details {
       display: flex;
       justify-content: space-between;
@@ -262,7 +266,6 @@ body {
     &-buttons {
       display: flex;
       justify-content: space-between;
-      //margin-top: 40px;
 
       .go-back-btn {
         display: flex;
@@ -306,19 +309,22 @@ body {
   }
 
   &--empty {
-    margin: 0 auto;
-    width: 560px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
 
     h2 {
-      font-size: 32px;
-      margin-bottom: 10px;
+      font-size: 36px;
+      font-weight: 700;
     }
 
     p {
       font-size: 18px;
       line-height: 145.4%;
       letter-spacing: 0.01em;
+      text-align: center;
       color: #777777;
     }
 
@@ -330,13 +336,12 @@ body {
     img {
       display: block;
       width: 300px;
-      margin: 45px auto 60px;
     }
 
     .button--black {
       padding: 12px 0 14px;
-      width: 230px;
-      margin: 0 auto;
+      max-width: 230px;
+      width: 100%;
       font-weight: 600;
       font-size: 18px;
     }
