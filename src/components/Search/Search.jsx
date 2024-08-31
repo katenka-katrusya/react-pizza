@@ -21,7 +21,7 @@ export const Search = () => {
   };
 
   const onClickClear = () => {
-    dispatch(setSearchValue('')); // очистка в Context
+    dispatch(setSearchValue('')); // очистка в state
     setValue(''); // локальная очистка
   };
 

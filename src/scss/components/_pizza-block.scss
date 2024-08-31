@@ -2,11 +2,13 @@
 
 .pizza-block {
   width: 280px;
+  min-height: 465px;
   text-align: center;
-  //margin-bottom: 65px;
 
   &__image {
     width: 260px;
+    max-height: 260px;
+    height: 100%;
   }
 
   &__title {
@@ -17,10 +19,8 @@
   }
 
   &__selector {
-    //display: flex;
     background-color: #f3f3f3;
     border-radius: 10px;
-    //flex-direction: column;
     padding: 6px;
 
     ul {
@@ -38,6 +38,7 @@
         font-weight: 600;
         font-size: 14px;
         @include noselect();
+
         &.active {
           background: #ffffff;
           box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);

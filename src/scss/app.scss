@@ -60,6 +60,20 @@ body {
       margin-bottom: 40px;
     }
   }
+
+  &__error {
+    &-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 50px;
+    }
+
+    &-desc {
+      font-size: 24px;
+    }
+  }
 }
 
 .container {

@@ -8,9 +8,9 @@ import { store } from '@/redux/store.js';
 const root = createRoot(document.getElementById('root'));
 
 root.render(
-  //<StrictMode>
+  <StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-  //</StrictMode>
+  </StrictMode>
 );

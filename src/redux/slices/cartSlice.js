@@ -8,9 +8,9 @@ const initialState = {
 // поиск элемента в массиве
 const findItem = (items, payload) => {
   return items.find(item =>
-      item.id === payload.id &&
-      item.size === payload.size &&
-      item.type === payload.type
+    item.id === payload.id &&
+    item.size === payload.size &&
+    item.type === payload.type
   );
 };
 
@@ -24,11 +24,11 @@ const cartSlice = createSlice({
   initialState, // первоначальное состояние
   reducers: {
     addItem(state, action) {
-      const item = findItem(state.items, action.payload)
+      const item = findItem(state.items, action.payload);
       if (item) {
         item.count++;
       } else {
-        state.items.push({...action.payload, count: 1,}) // если такого товара нет, добавить новый
+        state.items.push({ ...action.payload, count: 1, }); // если такого товара нет, добавить новый
       }
       state.totalPrice = calculateTotalPrice(state.items);
     },
@@ -64,6 +64,13 @@ const cartSlice = createSlice({
     },
   }
 });
+
+export const selectCart = (state) => state.cart;
+export const selectCartItem = (id, sizes, dough) => (state) =>
+  state.cart.items.find(obj =>
+    (obj.id === id) &&
+    (obj.size === sizes) &&
+    (obj.type === dough))
 
 export const { addItem, removeItem, clearItems, plusItem, minusItem } = cartSlice.actions;
 export default cartSlice.reducer;
