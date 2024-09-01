@@ -2,7 +2,7 @@ import s from './Search.module.scss';
 import { useCallback, useState } from 'react';
 import debounce from 'lodash.debounce';
 import { useDispatch } from 'react-redux';
-import { setSearchValue } from '@/redux/slices/filterSlice.js';
+import { setSearchValue } from '@/redux/slices/filterSlice.ts';
 
 export const Search = () => {
   const [value, setValue] = useState('');

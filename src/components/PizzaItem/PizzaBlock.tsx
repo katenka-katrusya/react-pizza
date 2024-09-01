@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addItem, selectCartItem } from '@/redux/slices/cartSlice.js'
+import { addItem, selectCartItem } from '@/redux/slices/cartSlice.ts'
 import { Link } from 'react-router-dom'
 
 const dough = ['тонкое', 'традиционное'];

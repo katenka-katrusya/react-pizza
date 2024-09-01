@@ -1,15 +1,14 @@
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { CartItem } from '@/components/CartItem.jsx';
-import { clearItems, selectCart } from '@/redux/slices/cartSlice.js';
-import { CartEmpty } from '@/components/CartEmpty.jsx';
-import { calculateTotalCount } from '@/helpers.js';
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { CartItem } from '@/components/CartItem.tsx'
+import { clearItems, selectCart } from '@/redux/slices/cartSlice.ts'
+import { CartEmpty } from '@/components/CartEmpty.tsx'
+import { calculateTotalCount } from '@/helpers.ts'
 
 export const Cart = () => {
   const dispatch = useDispatch()
   const { items, totalPrice } = useSelector(selectCart)
   const totalCount = calculateTotalCount(items)
-  console.log(items);
 
   const onClickClear = () => {
     dispatch(clearItems())

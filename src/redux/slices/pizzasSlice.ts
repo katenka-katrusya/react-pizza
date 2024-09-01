@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchPizzas } from '@/redux/slices/pizzasThunk.js';
+import { fetchPizzas } from '@/redux/slices/pizzasThunk.ts';
 
 const initialState = {
   items: [],

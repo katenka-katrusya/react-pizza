@@ -1,4 +1,4 @@
-import { plusItem, minusItem, removeItem } from '@/redux/slices/cartSlice.js';
+import { minusItem, plusItem, removeItem } from '@/redux/slices/cartSlice.ts';
 import { useDispatch } from 'react-redux';
 
 export const CartItem = ({ item, index }) => {

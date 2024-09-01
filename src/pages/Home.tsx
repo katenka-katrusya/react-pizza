@@ -1,14 +1,18 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Categories } from '@/components/Categories.jsx'
-import { Sort } from '@/components/Sort.jsx'
-import { SkeletonLoader } from '@/components/PizzaItem/SkeletonLoader.jsx'
-import { PizzaBlock } from '@/components/PizzaItem/PizzaBlock.jsx'
-import { Pagination } from '@/components/Pagination/Pagination.jsx'
-import { selectFilter, setCategoryIndex, setCurrentPage } from '@/redux/slices/filterSlice.js'
-import { fetchPizzas } from '@/redux/slices/pizzasThunk.js'
-import { selectPizzasData } from '@/redux/slices/pizzasSlice.js'
+import { Categories } from '@/components/Categories.tsx'
+import { Sort } from '@/components/Sort.tsx'
+import { SkeletonLoader } from '@/components/PizzaItem/SkeletonLoader.tsx'
+import { PizzaBlock } from '@/components/PizzaItem/PizzaBlock.tsx'
+import { Pagination } from '@/components/Pagination/Pagination.tsx'
+import {
+  selectFilter,
+  setCategoryIndex,
+  setCurrentPage
+} from '@/redux/slices/filterSlice.ts'
+import { fetchPizzas } from '@/redux/slices/pizzasThunk.ts'
+import { selectPizzasData } from '@/redux/slices/pizzasSlice.ts'
 
 export const Home = () => {
   const { categoryIndex, sortType, sortOrder, currentPage, searchValue } = useSelector(selectFilter);
@@ -35,7 +39,7 @@ export const Home = () => {
     params._order = sortOrder ? 'asc' : 'desc';
 
     dispatch(fetchPizzas(params));
-    
+
     // window.scrollTo(0, 0);
   }, [categoryIndex, sortType, sortOrder, currentPage, searchValue]);
 

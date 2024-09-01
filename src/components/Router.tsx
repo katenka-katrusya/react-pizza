@@ -1,9 +1,9 @@
-import App from '@/App.jsx'
+import App from '@/App.tsx'
 import { createBrowserRouter } from 'react-router-dom'
-import { NotFound } from '@/pages/NotFound/NotFound.jsx'
-import { Cart } from '@/pages/Cart.jsx'
-import { Home } from '@/pages/Home.jsx'
-import { FullPizza } from '@/components/FullPizza.jsx'
+import { NotFound } from '@/pages/NotFound/NotFound.tsx'
+import { Cart } from '@/pages/Cart.tsx'
+import { Home } from '@/pages/Home.tsx'
+import { FullPizza } from '@/components/FullPizza.tsx'
 
 export const router = createBrowserRouter([
   {
