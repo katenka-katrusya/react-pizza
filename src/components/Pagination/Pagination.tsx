@@ -2,14 +2,14 @@ import s from './Pagination.module.scss'
 import ReactPaginate from 'react-paginate'
 import { FC } from 'react'
 
-type PaginationProps = {
+type TPagination = {
   onChangeCurrentPage: (page: number) => void;
   totalPages: number;
   pizzasLimit: number;
   currentPage: number
 }
 
-export const Pagination: FC<PaginationProps> = ({ onChangeCurrentPage, totalPages, pizzasLimit, currentPage }) => {
+export const Pagination: FC<TPagination> = ({ onChangeCurrentPage, totalPages, pizzasLimit, currentPage }) => {
   return (
     <ReactPaginate
       className={s.pagination}

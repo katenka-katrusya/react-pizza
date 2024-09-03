@@ -1,13 +1,13 @@
 import { FC } from 'react'
 
-type CategoriesProps = {
+type TCategories = {
   value: number,
   onClickCategory: (i: number) => void
 }
 
 const categoryList = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-export const Categories: FC<CategoriesProps> = ({ value, onClickCategory }) => {
+export const Categories: FC<TCategories> = ({ value, onClickCategory }) => {
   return (
     <ul className='categories'>
       {categoryList.map((categoryName, i) => (

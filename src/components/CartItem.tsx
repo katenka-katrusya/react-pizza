@@ -2,7 +2,7 @@ import { minusItem, plusItem, removeItem } from '@/redux/slices/cartSlice.ts'
 import { useDispatch } from 'react-redux'
 import { FC } from 'react'
 
-type CartItemProps = {
+type TCartItem = {
   item: {
     id: number;
     title: string;
@@ -14,7 +14,7 @@ type CartItemProps = {
   }
 }
 
-export const CartItem: FC<CartItemProps> = ({ item, index }) => {
+export const CartItem: FC<TCartItem> = ({ item, index }) => {
   const dispatch = useDispatch();
 
   const onClickPlus = (id, size, type) => {

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 const dough = ['тонкое', 'традиционное'];
 
-type PizzaBlockProps = {
+type TPizzaBlock = {
   id: number,
   title: string,
   price: number,
@@ -14,7 +14,7 @@ type PizzaBlockProps = {
   types: number[],
 }
 
-export const PizzaBlock: FC<PizzaBlockProps> = ({ id, title, price, imageUrl, sizes, types }) => {
+export const PizzaBlock: FC<TPizzaBlock> = ({ id, title, price, imageUrl, sizes, types }) => {
   const [activeSize, setActiveSize] = useState(0);
   const [activeDough, setActiveDough] = useState(0);
 

@@ -6,12 +6,12 @@ import {
   setSortType
 } from '@/redux/slices/filterSlice.ts'
 
-type SortItems = {
+type TSortList = {
   name: string,
   sortProperty: string
 }
 
-const sortList: SortItems[] = [
+const sortList: TSortList[] = [
   { name: 'популярности', sortProperty: 'rating' },
   { name: 'цене', sortProperty: 'price' },
   { name: 'алфавиту', sortProperty: 'title' }
