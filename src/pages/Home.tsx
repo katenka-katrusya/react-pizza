@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Categories } from '@/components/Categories.tsx'
@@ -14,13 +14,22 @@ import {
 import { fetchPizzas } from '@/redux/slices/pizzasThunk.ts'
 import { selectPizzasData } from '@/redux/slices/pizzasSlice.ts'
 
-export const Home = () => {
+export const Home: FC = () => {
   const { categoryIndex, sortType, sortOrder, currentPage, searchValue } = useSelector(selectFilter);
   const { items, pizzasLimit, totalPages, loading, error } = useSelector(selectPizzasData);
   const dispatch = useDispatch();
 
   const skeletons = Array(4).fill(null).map((_, index) => <SkeletonLoader key={index} />);
   const pizzas = items.map(pizza => <PizzaBlock key={pizza.id} {...pizza} />);
+
+  // type IParams = {
+  //   category?: number;
+  //   title_like?: string;
+  //   _page: number;
+  //   _limit: number;
+  //   _sort: string;
+  //   _order: string;
+  // }
 
   useEffect(() => {
     const params = {};
@@ -48,7 +57,7 @@ export const Home = () => {
       <div className='content__top'>
         <Categories
           value={categoryIndex}
-          onClickCategory={(i) => dispatch(setCategoryIndex(i))} />
+          onClickCategory={(i: number) => dispatch(setCategoryIndex(i))} />
         <Sort />
       </div>
       <h2 className='content__title'>Все пиццы</h2>
@@ -66,7 +75,7 @@ export const Home = () => {
 
       <Pagination
         currentPage={currentPage}
-        onChangeCurrentPage={number => dispatch(setCurrentPage(number))}
+        onChangeCurrentPage={(page: number) => dispatch(setCurrentPage(page))}
         totalPages={totalPages}
         pizzasLimit={pizzasLimit}
       />

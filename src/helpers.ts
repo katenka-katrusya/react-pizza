@@ -1,1 +1,3 @@
-export const calculateTotalCount = (items) => items.reduce((sum, item) => sum + item.count, 0)
+export const calculateTotalCount = (items: []) => {
+  return items.reduce((sum: number, item: { count: number }) => sum + item.count, 0)
+}

@@ -10,7 +10,7 @@ export const fetchPizzas = createAsyncThunk(
       const data = response.data;
 
       const totalCount = response.headers['x-total-count'];
-
+      console.log(data, totalCount);
       return { data, totalCount };
     } catch (error) {
       console.log(error.message);

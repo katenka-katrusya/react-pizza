@@ -1,12 +1,17 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   selectFilter,
   setSortOrder,
   setSortType
-} from '@/redux/slices/filterSlice.ts';
+} from '@/redux/slices/filterSlice.ts'
 
-const sortList = [
+type SortItems = {
+  name: string,
+  sortProperty: string
+}
+
+const sortList: SortItems[] = [
   { name: 'популярности', sortProperty: 'rating' },
   { name: 'цене', sortProperty: 'price' },
   { name: 'алфавиту', sortProperty: 'title' }
@@ -27,8 +32,10 @@ export const Sort = () => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!event.target.closest('.sort')) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+
+      if (target && !target.closest('.sort')) {
         setIsOpen((prev) => { // используется callback-функция для обновления состояния
           if (prev) {
             return false; // Закрыть попап

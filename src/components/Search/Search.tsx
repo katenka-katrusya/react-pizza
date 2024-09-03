@@ -1,13 +1,14 @@
-import s from './Search.module.scss';
-import { useCallback, useState } from 'react';
-import debounce from 'lodash.debounce';
-import { useDispatch } from 'react-redux';
-import { setSearchValue } from '@/redux/slices/filterSlice.ts';
+import s from './Search.module.scss'
+import { ChangeEvent, useCallback, useState } from 'react'
+import debounce from 'lodash.debounce'
+import { useDispatch } from 'react-redux'
+import { setSearchValue } from '@/redux/slices/filterSlice.ts'
 
 export const Search = () => {
   const [value, setValue] = useState('');
   const dispatch = useDispatch();
 
+  // @ts-ignore
   const debounceSearch = useCallback(
     debounce((str) => {
       dispatch(setSearchValue(str));
@@ -15,7 +16,7 @@ export const Search = () => {
     []
   );
 
-  const onChangeInput = (e) => {
+  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     debounceSearch(e.target.value);
   };

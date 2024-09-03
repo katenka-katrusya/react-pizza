@@ -1,13 +1,13 @@
+import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { PIZZA_BY_ID } from '@/constants/api.ts'
-import axios from 'axios'
 import { PizzaBlock } from '@/components/PizzaItem/PizzaBlock.tsx'
 
 export const FullPizza = () => {
   const navigate = useNavigate();
   const { id } = useParams()
-  const [pizza, setPizza] = useState({})
+  const [pizza, setPizza] = useState<{}>()
 
   useEffect(() => {
     if (!id) return
@@ -26,11 +26,13 @@ export const FullPizza = () => {
     fetchData()
   }, [id])
 
-  if (!pizza?.title) return (
-    <div className='container'>
-      <h2>Загрузка...</h2>
-    </div>
-  )
+  if (!pizza) {
+    return (
+      <div className='container'>
+        <h2>Загрузка...</h2>
+      </div>
+    )
+  }
 
   return (
     <div className='container'>

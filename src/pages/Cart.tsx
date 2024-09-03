@@ -4,8 +4,9 @@ import { CartItem } from '@/components/CartItem.tsx'
 import { clearItems, selectCart } from '@/redux/slices/cartSlice.ts'
 import { CartEmpty } from '@/components/CartEmpty.tsx'
 import { calculateTotalCount } from '@/helpers.ts'
+import { FC } from 'react'
 
-export const Cart = () => {
+export const Cart: FC = () => {
   const dispatch = useDispatch()
   const { items, totalPrice } = useSelector(selectCart)
   const totalCount = calculateTotalCount(items)
