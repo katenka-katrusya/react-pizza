@@ -1,15 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  selectFilter,
-  setSortOrder,
-  setSortType
-} from '@/redux/slices/filterSlice.ts'
-
-type TSortList = {
-  name: string,
-  sortProperty: string
-}
+import { selectFilter, setSortOrder, setSortType, TSortList } from '@/redux/slices/filterSlice.ts'
 
 const sortList: TSortList[] = [
   { name: 'популярности', sortProperty: 'rating' },
@@ -22,7 +13,7 @@ export const Sort = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
-  const chooseActiveSort = (obj) => {
+  const chooseActiveSort = (obj: TSortList) => {
     dispatch(setSortType(obj));
     setIsOpen(false);
   };
@@ -87,11 +78,11 @@ export const Sort = () => {
       {isOpen &&
         <div className='sort__popup'>
           <ul>
-            {sortList.map((sortObj, index) => (
-              <li onClick={() => chooseActiveSort(sortObj)}
-                  className={sortType.sortProperty === sortObj.sortProperty ? 'active' : ''}
+            {sortList.map((obj, index) => (
+              <li onClick={() => chooseActiveSort(obj)}
+                  className={sortType.sortProperty === obj.sortProperty ? 'active' : ''}
                   key={index}>
-                {sortObj.name}
+                {obj.name}
               </li>
             ))}
           </ul>

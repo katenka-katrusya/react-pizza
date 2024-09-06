@@ -1,19 +1,36 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from '@/redux/store'
 
-const initialState = {
+export type TCartItem = {
+  id: number,
+  title: string,
+  price: number,
+  imageUrl: string,
+  size: number,
+  type: string,
+  count: number,
+}
+
+interface ICartSlice {
+  totalPrice: number;
+  items: TCartItem[];
+}
+
+const initialState: ICartSlice = {
   totalPrice: 0,
   items: []
 }
 
+
 // загрузка корзины из локалсторадж
-const loadCartFromLocalStorage = () => {
+const loadCartFromLocalStorage = (): ICartSlice => {
   try {
     const localCart = localStorage.getItem('cartPizzas')
-    
+
     if (!localCart) {
       return initialState
     }
-    
+
     return JSON.parse(localCart)
   } catch (error) {
     console.warn('Ошибка при загрузке пиццы из localStorage', error)
@@ -22,7 +39,7 @@ const loadCartFromLocalStorage = () => {
 }
 
 // сохранение в локалсторадж
-const saveCartToLocalStorage = (state) => {
+const saveCartToLocalStorage = (state: ICartSlice) => {
   try {
     const localCart = JSON.stringify(state)
     localStorage.setItem('cartPizzas', localCart)
@@ -32,7 +49,7 @@ const saveCartToLocalStorage = (state) => {
 }
 
 // поиск элемента в массиве
-const findItem = (items, payload) => {
+const findItem = (items: TCartItem[], payload: TCartItem) => {
   return items.find(item =>
     item.id === payload.id &&
     item.size === payload.size &&
@@ -41,7 +58,7 @@ const findItem = (items, payload) => {
 }
 
 // пересчет общей стоимости
-const calculateTotalPrice = (items) => {
+const calculateTotalPrice = (items: TCartItem[]) => {
   return items.reduce((sum, item) => sum + (item.price * item.count), 0)
 }
 
@@ -49,7 +66,7 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState: loadCartFromLocalStorage(), // первоначальное состояние
   reducers: {
-    addItem(state, action) {
+    addItem(state: ICartSlice, action: PayloadAction<TCartItem>) {
       const item = findItem(state.items, action.payload)
       if (item) {
         item.count++
@@ -59,7 +76,7 @@ const cartSlice = createSlice({
       state.totalPrice = calculateTotalPrice(state.items)
       saveCartToLocalStorage(state)
     },
-    plusItem(state, action) {
+    plusItem(state: ICartSlice, action: PayloadAction<TCartItem>) {
       const item = findItem(state.items, action.payload)
       if (item) {
         item.count++
@@ -67,9 +84,9 @@ const cartSlice = createSlice({
       state.totalPrice = calculateTotalPrice(state.items)
       saveCartToLocalStorage(state)
     },
-    minusItem(state, action) {
+    minusItem(state: ICartSlice, action: PayloadAction<TCartItem>) {
       const item = findItem(state.items, action.payload)
-      if (item.count > 1) {
+      if (item && item.count > 1) {
         item.count--
       } else {
         state.items = state.items.filter(
@@ -82,12 +99,12 @@ const cartSlice = createSlice({
       state.totalPrice = calculateTotalPrice(state.items)
       saveCartToLocalStorage(state)
     },
-    removeItem(state, action) {
+    removeItem(state: ICartSlice, action: PayloadAction<number>) {
       state.items = state.items.filter((_, index) => (index !== action.payload))
       state.totalPrice = calculateTotalPrice(state.items)
       saveCartToLocalStorage(state)
     },
-    clearItems(state) {
+    clearItems(state: ICartSlice) {
       state.items = []
       state.totalPrice = 0
       saveCartToLocalStorage(state)
@@ -95,12 +112,22 @@ const cartSlice = createSlice({
   }
 })
 
-export const selectCart = (state) => state.cart
-export const selectCartItem = (id, sizes, dough) => (state) =>
-  state.cart.items.find(obj =>
+export const selectCart = (state: RootState) => state.cart
+export const selectCartItem = (id: number, sizes: number, dough: string) => (state: RootState) =>
+  state.cart.items.find(
+    obj =>
     (obj.id === id) &&
     (obj.size === sizes) &&
-    (obj.type === dough))
+    (obj.type === dough)
+  )
 
-export const { addItem, removeItem, clearItems, plusItem, minusItem } = cartSlice.actions
+
+export const {
+  addItem,
+  removeItem,
+  clearItems,
+  plusItem,
+  minusItem
+} = cartSlice.actions
+
 export default cartSlice.reducer

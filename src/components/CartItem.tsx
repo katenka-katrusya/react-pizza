@@ -1,34 +1,26 @@
-import { minusItem, plusItem, removeItem } from '@/redux/slices/cartSlice.ts'
+import { minusItem, plusItem, removeItem, TCartItem } from '@/redux/slices/cartSlice.ts'
 import { useDispatch } from 'react-redux'
 import { FC } from 'react'
 
-type TCartItem = {
-  item: {
-    id: number;
-    title: string;
-    size: number;
-    type: string;
-    count: number;
-    price: number;
-    imageUrl: string;
+type TCartItemProps = {
+  item: TCartItem,
+  index: number,
+};
+
+export const CartItem: FC<TCartItemProps> = ({ item, index }) => {
+  const dispatch = useDispatch()
+
+  const onClickPlus = () => {
+    dispatch(plusItem(item))
   }
-}
 
-export const CartItem: FC<TCartItem> = ({ item, index }) => {
-  const dispatch = useDispatch();
-
-  const onClickPlus = (id, size, type) => {
-    console.log(type)
-    dispatch(plusItem({ id, size, type }));
-  };
-
-  const onClickMinus = (id, size, type) => {
-    dispatch(minusItem({ id, size, type }));
-  };
+  const onClickMinus = () => {
+    dispatch(minusItem(item))
+  }
 
   const onClickRemove = () => {
-    dispatch(removeItem(index));
-  };
+    dispatch(removeItem(index))
+  }
 
   return (
     <li className='cart__item'>
@@ -43,7 +35,7 @@ export const CartItem: FC<TCartItem> = ({ item, index }) => {
       </div>
 
       <div className='cart__item-count'>
-        <button onClick={() => dispatch(() => onClickMinus(item.id, item.size, item.type))}
+        <button onClick={onClickMinus}
                 className='button button--outline button--circle cart__item-count-minus'>
           <svg width='10' height='10' viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path
@@ -55,7 +47,7 @@ export const CartItem: FC<TCartItem> = ({ item, index }) => {
           </svg>
         </button>
         <b>{item.count}</b>
-        <button onClick={() => onClickPlus(item.id, item.size, item.type)}
+        <button onClick={onClickPlus}
                 className='button button--outline button--circle cart__item-count-plus'>
           <svg width='10' height='10' viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path
@@ -85,5 +77,5 @@ export const CartItem: FC<TCartItem> = ({ item, index }) => {
         </div>
       </button>
     </li>
-  );
-};
+  )
+}

@@ -1,56 +1,43 @@
 import { FC, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import { Categories } from '@/components/Categories.tsx'
 import { Sort } from '@/components/Sort.tsx'
 import { SkeletonLoader } from '@/components/PizzaItem/SkeletonLoader.tsx'
 import { PizzaBlock } from '@/components/PizzaItem/PizzaBlock.tsx'
 import { Pagination } from '@/components/Pagination/Pagination.tsx'
-import {
-  selectFilter,
-  setCategoryIndex,
-  setCurrentPage
-} from '@/redux/slices/filterSlice.ts'
-import { fetchPizzas } from '@/redux/slices/pizzasThunk.ts'
-import { selectPizzasData } from '@/redux/slices/pizzasSlice.ts'
+import { selectFilter, setCategoryIndex, setCurrentPage } from '@/redux/slices/filterSlice.ts'
+import { fetchPizzas, TParams } from '@/redux/slices/pizzasThunk.ts'
+import { selectPizzasData, Status } from '@/redux/slices/pizzasSlice.ts'
+import { useAppDispatch } from '@/redux/store.ts'
 
 export const Home: FC = () => {
-  const { categoryIndex, sortType, sortOrder, currentPage, searchValue } = useSelector(selectFilter);
-  const { items, pizzasLimit, totalPages, loading, error } = useSelector(selectPizzasData);
-  const dispatch = useDispatch();
+  const { categoryIndex, sortType, sortOrder, currentPage, searchValue } = useSelector(selectFilter)
+  const { items, pizzaLimit, totalPages, loading } = useSelector(selectPizzasData)
+  const dispatch = useAppDispatch()
 
-  const skeletons = Array(4).fill(null).map((_, index) => <SkeletonLoader key={index} />);
-  const pizzas = items.map(pizza => <PizzaBlock key={pizza.id} {...pizza} />);
-
-  // type IParams = {
-  //   category?: number;
-  //   title_like?: string;
-  //   _page: number;
-  //   _limit: number;
-  //   _sort: string;
-  //   _order: string;
-  // }
+  const skeletons = Array(4).fill(null).map((_, index) => <SkeletonLoader key={index} />)
+  const pizzas = items.map(pizza => <PizzaBlock key={pizza.id} {...pizza} />)
 
   useEffect(() => {
-    const params = {};
+    const params: TParams = {
+      _page: currentPage,
+      _limit: pizzaLimit,
+      _sort: sortType.sortProperty,
+      _order: sortOrder ? 'asc' : 'desc',
+    }
 
     // выбор категории. 0 категория - это все пиццы
     if (categoryIndex > 0) {
-      params.category = categoryIndex;
+      params.category = categoryIndex
     }
     // поиск
-    params.title_like = searchValue;
-    //   пагинация
-    params._page = currentPage;
-    params._limit = pizzasLimit;
-    // сортировка
-    params._sort = sortType.sortProperty;
-    params._order = sortOrder ? 'asc' : 'desc';
+    params.title_like = searchValue
 
-    dispatch(fetchPizzas(params));
+    dispatch(fetchPizzas(params))
 
     // window.scrollTo(0, 0);
-  }, [categoryIndex, sortType, sortOrder, currentPage, searchValue]);
+  }, [categoryIndex, sortType, sortOrder, currentPage, searchValue])
 
   return (
     <div className='container'>
@@ -62,23 +49,23 @@ export const Home: FC = () => {
       </div>
       <h2 className='content__title'>Все пиццы</h2>
 
-      {error ? (
+      {loading === Status.FAILED ? (
         <div className='content__error-info'>
           <h2 className='content__error-title'>Произошла ошибка 😕</h2>
           <p className='content__error-desc'>Не удалось получить пиццы. Попробуйте повторить позже</p>
         </div>
       ) : (
-         <div className='content__items'>
-           {loading === 'pending' ? skeletons : pizzas}
-         </div>
+        <div className='content__items'>
+          {loading === 'pending' ? skeletons : pizzas}
+        </div>
       )}
 
       <Pagination
         currentPage={currentPage}
         onChangeCurrentPage={(page: number) => dispatch(setCurrentPage(page))}
         totalPages={totalPages}
-        pizzasLimit={pizzasLimit}
+        pizzaLimit={pizzaLimit}
       />
     </div>
-  );
-};
+  )
+}

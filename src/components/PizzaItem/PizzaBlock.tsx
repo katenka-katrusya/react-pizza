@@ -1,18 +1,10 @@
 import { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addItem, selectCartItem } from '@/redux/slices/cartSlice.ts'
+import { addItem, selectCartItem, TCartItem } from '@/redux/slices/cartSlice.ts'
 import { Link } from 'react-router-dom'
+import { TPizzaBlock } from '@/redux/slices/pizzasSlice'
 
 const dough = ['тонкое', 'традиционное'];
-
-type TPizzaBlock = {
-  id: number,
-  title: string,
-  price: number,
-  imageUrl: string,
-  sizes: number[],
-  types: number[],
-}
 
 export const PizzaBlock: FC<TPizzaBlock> = ({ id, title, price, imageUrl, sizes, types }) => {
   const [activeSize, setActiveSize] = useState(0);
@@ -28,13 +20,14 @@ export const PizzaBlock: FC<TPizzaBlock> = ({ id, title, price, imageUrl, sizes,
   }, []);
 
   const addPizzaToCart = () => {
-    const item = {
+    const item: TCartItem = {
       id,
       title,
       price,
       imageUrl,
       size: sizes[activeSize],
       type: dough[activeDough],
+      count: addCount + 1
     }
     dispatch(addItem(item))
   }

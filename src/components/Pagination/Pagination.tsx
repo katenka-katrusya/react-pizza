@@ -5,11 +5,11 @@ import { FC } from 'react'
 type TPagination = {
   onChangeCurrentPage: (page: number) => void;
   totalPages: number;
-  pizzasLimit: number;
+  pizzaLimit: number;
   currentPage: number
 }
 
-export const Pagination: FC<TPagination> = ({ onChangeCurrentPage, totalPages, pizzasLimit, currentPage }) => {
+export const Pagination: FC<TPagination> = ({ onChangeCurrentPage, totalPages, pizzaLimit, currentPage }) => {
   return (
     <ReactPaginate
       className={s.pagination}
@@ -18,7 +18,7 @@ export const Pagination: FC<TPagination> = ({ onChangeCurrentPage, totalPages, p
       previousLabel='<'
       onPageChange={e => onChangeCurrentPage(e.selected + 1)}
       forcePage={currentPage - 1} // явно указываем какая страница активна
-      pageRangeDisplayed={pizzasLimit}
+      pageRangeDisplayed={pizzaLimit}
       pageCount={totalPages}
       renderOnZeroPageCount={null}
     />
