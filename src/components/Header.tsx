@@ -22,7 +22,7 @@ export const Header = () => {
           </div>
         </Link>
 
-        {location.pathname !== '/cart' &&
+        {location.pathname === '/' &&
           <Search />
         }
 

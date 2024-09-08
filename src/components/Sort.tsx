@@ -1,49 +1,53 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { selectFilter, setSortOrder, setSortType, TSortList } from '@/redux/slices/filterSlice.ts'
+import { FC, memo, useCallback, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setSortOrder, setSortType, TSortList } from '@/redux/slices/filterSlice.ts'
+
+type TSort = {
+  sortType: TSortList,
+  sortOrder: boolean
+}
 
 const sortList: TSortList[] = [
   { name: 'популярности', sortProperty: 'rating' },
   { name: 'цене', sortProperty: 'price' },
   { name: 'алфавиту', sortProperty: 'title' }
-];
+]
 
-export const Sort = () => {
-  const { sortOrder, sortType } = useSelector(selectFilter);
-  const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
+export const Sort: FC<TSort> = memo(({ sortType, sortOrder }) => {
+  const dispatch = useDispatch()
+  const [isOpen, setIsOpen] = useState(false)
 
-  const chooseActiveSort = (obj: TSortList) => {
-    dispatch(setSortType(obj));
-    setIsOpen(false);
-  };
+  const chooseActiveSort = useCallback((obj: TSortList) => {
+    dispatch(setSortType(obj))
+    setIsOpen(false)
+  }, [setIsOpen])
 
-  const chooseOrder = () => {
-    dispatch(setSortOrder(!sortOrder));
-  };
+  const chooseOrder = useCallback(() => {
+    dispatch(setSortOrder(!sortOrder))
+  }, [sortOrder])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Element;
+      const target = event.target as Element
 
       if (target && !target.closest('.sort')) {
         setIsOpen((prev) => { // используется callback-функция для обновления состояния
           if (prev) {
-            return false; // Закрыть попап
+            return false // Закрыть попап
           }
-          return prev; // Ничего не менять, если уже закрыто
-        });
+          return prev // Ничего не менять, если уже закрыто
+        })
       }
-    };
+    }
 
     if (isOpen) {
-      document.addEventListener('click', handleClickOutside);
+      document.addEventListener('click', handleClickOutside)
     }
 
     return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [isOpen]);
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [isOpen])
 
   return (
     <div className='sort'>
@@ -89,5 +93,5 @@ export const Sort = () => {
         </div>
       }
     </div>
-  );
-};
+  )
+})

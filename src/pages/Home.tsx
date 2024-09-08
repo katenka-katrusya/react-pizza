@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react'
+import { FC, useCallback, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 import { Categories } from '@/components/Categories.tsx'
@@ -19,6 +19,10 @@ export const Home: FC = () => {
   const skeletons = Array(4).fill(null).map((_, index) => <SkeletonLoader key={index} />)
   const pizzas = items.map(pizza => <PizzaBlock key={pizza.id} {...pizza} />)
 
+  const onChangeCategory = useCallback((i: number) => {
+    dispatch(setCategoryIndex(i))
+  }, [])
+
   useEffect(() => {
     const params: TParams = {
       _page: currentPage,
@@ -26,7 +30,6 @@ export const Home: FC = () => {
       _sort: sortType.sortProperty,
       _order: sortOrder ? 'asc' : 'desc',
     }
-
     // выбор категории. 0 категория - это все пиццы
     if (categoryIndex > 0) {
       params.category = categoryIndex
@@ -44,8 +47,8 @@ export const Home: FC = () => {
       <div className='content__top'>
         <Categories
           value={categoryIndex}
-          onClickCategory={(i: number) => dispatch(setCategoryIndex(i))} />
-        <Sort />
+          onClickCategory={onChangeCategory} />
+        <Sort sortType={sortType} sortOrder={sortOrder}/>
       </div>
       <h2 className='content__title'>Все пиццы</h2>
 

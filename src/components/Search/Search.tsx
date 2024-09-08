@@ -1,12 +1,14 @@
 import s from './Search.module.scss'
-import { ChangeEvent, useCallback, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import debounce from 'lodash.debounce'
 import { useDispatch } from 'react-redux'
 import { setSearchValue } from '@/redux/slices/filterSlice.ts'
+import { useLocation } from 'react-router-dom'
 
 export const Search = () => {
   const [value, setValue] = useState('');
   const dispatch = useDispatch();
+  const location = useLocation()
 
   // @ts-ignore
   const debounceSearch = useCallback(
@@ -25,6 +27,10 @@ export const Search = () => {
     dispatch(setSearchValue('')); // очистка в state
     setValue(''); // локальная очистка
   };
+
+  useEffect(() => {
+    onClickClear();
+  }, [location.pathname])
 
   return (
     <label className={s.wrapper}>

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 type TCategories = {
   value: number,
@@ -7,7 +7,7 @@ type TCategories = {
 
 const categoryList = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-export const Categories: FC<TCategories> = ({ value, onClickCategory }) => {
+export const Categories: FC<TCategories> = memo(({ value, onClickCategory }) => {
   return (
     <ul className='categories'>
       {categoryList.map((categoryName, i) => (
@@ -18,4 +18,4 @@ export const Categories: FC<TCategories> = ({ value, onClickCategory }) => {
       ))}
     </ul>
   );
-};
+})

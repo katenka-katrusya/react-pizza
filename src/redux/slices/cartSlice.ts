@@ -21,33 +21,6 @@ const initialState: ICartSlice = {
   items: []
 }
 
-
-// загрузка корзины из локалсторадж
-const loadCartFromLocalStorage = (): ICartSlice => {
-  try {
-    const localCart = localStorage.getItem('cartPizzas')
-
-    if (!localCart) {
-      return initialState
-    }
-
-    return JSON.parse(localCart)
-  } catch (error) {
-    console.warn('Ошибка при загрузке пиццы из localStorage', error)
-    return initialState
-  }
-}
-
-// сохранение в локалсторадж
-const saveCartToLocalStorage = (state: ICartSlice) => {
-  try {
-    const localCart = JSON.stringify(state)
-    localStorage.setItem('cartPizzas', localCart)
-  } catch (error) {
-    console.warn('Ошибка при сохранении пиццы из localStorage', error)
-  }
-}
-
 // поиск элемента в массиве
 const findItem = (items: TCartItem[], payload: TCartItem) => {
   return items.find(item =>
@@ -64,7 +37,7 @@ const calculateTotalPrice = (items: TCartItem[]) => {
 
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: loadCartFromLocalStorage(), // первоначальное состояние
+  initialState,
   reducers: {
     addItem(state: ICartSlice, action: PayloadAction<TCartItem>) {
       const item = findItem(state.items, action.payload)
@@ -74,7 +47,6 @@ const cartSlice = createSlice({
         state.items.push({ ...action.payload, count: 1 }) // если такого товара нет, добавить новый
       }
       state.totalPrice = calculateTotalPrice(state.items)
-      saveCartToLocalStorage(state)
     },
     plusItem(state: ICartSlice, action: PayloadAction<TCartItem>) {
       const item = findItem(state.items, action.payload)
@@ -82,7 +54,6 @@ const cartSlice = createSlice({
         item.count++
       }
       state.totalPrice = calculateTotalPrice(state.items)
-      saveCartToLocalStorage(state)
     },
     minusItem(state: ICartSlice, action: PayloadAction<TCartItem>) {
       const item = findItem(state.items, action.payload)
@@ -97,17 +68,14 @@ const cartSlice = createSlice({
         )
       }
       state.totalPrice = calculateTotalPrice(state.items)
-      saveCartToLocalStorage(state)
     },
     removeItem(state: ICartSlice, action: PayloadAction<number>) {
       state.items = state.items.filter((_, index) => (index !== action.payload))
       state.totalPrice = calculateTotalPrice(state.items)
-      saveCartToLocalStorage(state)
     },
     clearItems(state: ICartSlice) {
       state.items = []
       state.totalPrice = 0
-      saveCartToLocalStorage(state)
     }
   }
 })
@@ -120,7 +88,6 @@ export const selectCartItem = (id: number, sizes: number, dough: string) => (sta
     (obj.size === sizes) &&
     (obj.type === dough)
   )
-
 
 export const {
   addItem,
