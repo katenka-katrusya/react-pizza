@@ -1,7 +1,8 @@
 # React + Vite
 
-## Setup
-Необходимо запустить json-server командой `yarn start-server`
+Приложение [React-pizza](https://react-pizza-six-lovat.vercel.app/)
+
+Используется React, Redux-toolkit, Vite, TypeScript, axios, SCSS, CSS Modules
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
