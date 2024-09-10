@@ -364,9 +364,16 @@ body {
     gap: 40px;
     width: 100%;
 
+    @media (max-width: 650px) {
+      .icon {
+        display: none;
+      }
+    }
+
     h2 {
       font-size: 36px;
       font-weight: 700;
+      text-align: center;
     }
 
     p {
@@ -377,14 +384,13 @@ body {
       color: #777777;
     }
 
-    icon {
-      position: relative;
-      top: 2px;
-    }
-
     img {
       display: block;
       width: 300px;
+
+      @media (max-width: 650px) {
+        width: 200px;
+      }
     }
 
     .button--black {
