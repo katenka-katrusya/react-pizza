@@ -1,20 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '@/redux/store'
-
-export type TCartItem = {
-  id: number,
-  title: string,
-  price: number,
-  imageUrl: string,
-  size: number,
-  type: string,
-  count: number,
-}
-
-interface ICartSlice {
-  totalPrice: number;
-  items: TCartItem[];
-}
+import { calculateTotalPrice } from '@/helpers.ts'
+import { ICartSlice, TCartItem } from '@/redux/slices/cart/cartTypes.ts'
 
 const initialState: ICartSlice = {
   totalPrice: 0,
@@ -28,11 +14,6 @@ const findItem = (items: TCartItem[], payload: TCartItem) => {
     item.size === payload.size &&
     item.type === payload.type
   )
-}
-
-// пересчет общей стоимости
-const calculateTotalPrice = (items: TCartItem[]) => {
-  return items.reduce((sum, item) => sum + (item.price * item.count), 0)
 }
 
 const cartSlice = createSlice({
@@ -79,15 +60,6 @@ const cartSlice = createSlice({
     }
   }
 })
-
-export const selectCart = (state: RootState) => state.cart
-export const selectCartItem = (id: number, sizes: number, dough: string) => (state: RootState) =>
-  state.cart.items.find(
-    obj =>
-    (obj.id === id) &&
-    (obj.size === sizes) &&
-    (obj.type === dough)
-  )
 
 export const {
   addItem,

@@ -2,7 +2,7 @@ import s from './Search.module.scss'
 import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import debounce from 'lodash.debounce'
 import { useDispatch } from 'react-redux'
-import { setSearchValue } from '@/redux/slices/filterSlice.ts'
+import { setSearchValue } from '@/redux/slices/filter/filterSlice.ts'
 import { useLocation } from 'react-router-dom'
 
 export const Search = () => {

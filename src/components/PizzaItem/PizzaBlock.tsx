@@ -1,8 +1,10 @@
 import { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addItem, selectCartItem, TCartItem } from '@/redux/slices/cartSlice.ts'
+import { addItem } from '@/redux/slices/cart/cartSlice.ts'
 import { Link } from 'react-router-dom'
-import { TPizzaBlock } from '@/redux/slices/pizzasSlice'
+import { TPizzaBlock } from '@/redux/slices/pizza/pizzaTypes.ts'
+import { selectCartItem } from '@/redux/slices/cart/cartSelectors.ts'
+import { TCartItem } from '@/redux/slices/cart/cartTypes.ts'
 
 const dough = ['тонкое', 'традиционное'];
 

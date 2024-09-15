@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { PIZZA_BY_ID } from '@/constants/api.ts'
 import { PizzaBlock } from '@/components/PizzaItem/PizzaBlock.tsx'
-import { TPizzaBlock } from '@/redux/slices/pizzasSlice.ts'
+import { TPizzaBlock } from '@/redux/slices/pizza/pizzaTypes.ts'
 
 export const FullPizza = () => {
   const navigate = useNavigate();

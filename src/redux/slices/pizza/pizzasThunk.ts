@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { ALL_PIZZAS } from '@/constants/api.ts'
-import { TPizzaBlock } from '@/redux/slices/pizzasSlice.ts'
+import { TPizzaBlock } from '@/redux/slices/pizza/pizzaTypes.ts'
 
 export type TParams = {
   category?: number;

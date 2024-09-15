@@ -6,10 +6,12 @@ import { Sort } from '@/components/Sort.tsx'
 import { SkeletonLoader } from '@/components/PizzaItem/SkeletonLoader.tsx'
 import { PizzaBlock } from '@/components/PizzaItem/PizzaBlock.tsx'
 import { Pagination } from '@/components/Pagination/Pagination.tsx'
-import { selectFilter, setCategoryIndex, setCurrentPage } from '@/redux/slices/filterSlice.ts'
-import { fetchPizzas, TParams } from '@/redux/slices/pizzasThunk.ts'
-import { selectPizzasData, Status } from '@/redux/slices/pizzasSlice.ts'
+import { setCategoryIndex, setCurrentPage } from '@/redux/slices/filter/filterSlice.ts'
+import { fetchPizzas, TParams } from '@/redux/slices/pizza/pizzasThunk.ts'
+import { Status } from '@/redux/slices/pizza/pizzaTypes.ts'
 import { useAppDispatch } from '@/redux/store.ts'
+import { selectFilter } from '@/redux/slices/filter/filterSelectors.ts'
+import { selectPizzasData } from '@/redux/slices/pizza/pizzaSelectors.ts'
 
 export const Home: FC = () => {
   const { categoryIndex, sortType, sortOrder, currentPage, searchValue } = useSelector(selectFilter)

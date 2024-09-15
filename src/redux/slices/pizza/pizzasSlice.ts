@@ -1,29 +1,6 @@
-import { createSlice, PayloadAction, SerializedError } from '@reduxjs/toolkit'
-import { fetchPizzas } from '@/redux/slices/pizzasThunk.ts'
-import { RootState } from '@/redux/store'
-
-export type TPizzaBlock = {
-  id: number,
-  title: string,
-  price: number,
-  imageUrl: string,
-  sizes: number[],
-  types: number[],
-}
-
-export enum Status {
-  PENDING = 'pending',
-  SUCCESS = 'success',
-  FAILED = 'failed',
-}
-
-interface IPizzasSlice {
-  items: TPizzaBlock[];
-  totalPages: number;
-  pizzaLimit: number;
-  loading: Status;
-  error: SerializedError | null;
-}
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { fetchPizzas } from '@/redux/slices/pizza/pizzasThunk.ts'
+import { IPizzasSlice, Status, TPizzaBlock } from '@/redux/slices/pizza/pizzaTypes.ts'
 
 const initialState: IPizzasSlice = {
   items: [],
@@ -60,8 +37,6 @@ const pizzasSlice = createSlice({
       });
   }
 });
-
-export const selectPizzasData = (state: RootState) => state.pizzas;
 
 export const { setItems } = pizzasSlice.actions;
 export default pizzasSlice.reducer;

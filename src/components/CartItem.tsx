@@ -1,4 +1,4 @@
-import { minusItem, plusItem, removeItem, TCartItem } from '@/redux/slices/cartSlice.ts'
+import { minusItem, plusItem, removeItem, TCartItem } from '@/redux/slices/cart/cartSlice.ts'
 import { useDispatch } from 'react-redux'
 import { FC } from 'react'
 
