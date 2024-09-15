@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Search } from '@/components/Search/Search.tsx'
 import { useSelector } from 'react-redux'
 import { calculateTotalCount } from '@/helpers.ts'
-import { selectCart } from '@/redux/slices/cart/cartSelectors.ts'
+import { selectCart } from '@/redux/cart/cartSelectors.ts'
 
 export const Header = () => {
   const { totalPrice, items } = useSelector(selectCart)

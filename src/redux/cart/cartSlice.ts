@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { calculateTotalPrice } from '@/helpers.ts'
-import { ICartSlice, TCartItem } from '@/redux/slices/cart/cartTypes.ts'
+import { ICartSlice, TCartItem } from '@/redux/cart/cartTypes.ts'
 
 const initialState: ICartSlice = {
   totalPrice: 0,

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IFilterSlice, TSortList } from '@/redux/slices/filter/filterTypes.ts'
+import { IFilterSlice, TSortList } from '@/redux/filter/filterTypes.ts'
 
 const initialState: IFilterSlice = {
   categoryIndex: 0,

@@ -1,4 +1,4 @@
-import { TCartItem } from '@/redux/slices/cart/cartTypes.ts'
+import { TCartItem } from '@/redux/cart/cartTypes.ts'
 
 export const calculateTotalPrice = (items: TCartItem[]) => {
   return items.reduce((sum, item) => sum + (item.price * item.count), 0)

@@ -1,7 +1,7 @@
 import { FC, memo, useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setSortOrder, setSortType } from '@/redux/slices/filter/filterSlice.ts'
-import { TSortList } from '@/redux/slices/filter/filterTypes.ts'
+import { setSortOrder, setSortType } from '@/redux/filter/filterSlice.ts'
+import { TSortList } from '@/redux/filter/filterTypes.ts'
 
 type TSort = {
   sortType: TSortList,

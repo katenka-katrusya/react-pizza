@@ -1,6 +1,7 @@
-import { minusItem, plusItem, removeItem, TCartItem } from '@/redux/slices/cart/cartSlice.ts'
+import { minusItem, plusItem, removeItem } from '@/redux/cart/cartSlice.ts'
 import { useDispatch } from 'react-redux'
 import { FC } from 'react'
+import { TCartItem } from '@/redux/cart/cartTypes.ts'
 
 type TCartItemProps = {
   item: TCartItem,
