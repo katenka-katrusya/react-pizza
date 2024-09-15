@@ -5,7 +5,7 @@ import { PIZZA_BY_ID } from '@/constants/api.ts'
 import { PizzaBlock } from '@/components/PizzaItem/PizzaBlock.tsx'
 import { TPizzaBlock } from '@/redux/pizza/pizzaTypes.ts'
 
-export const FullPizza = () => {
+const FullPizza = () => {
   const navigate = useNavigate();
   const { id } = useParams()
   const [pizza, setPizza] = useState<TPizzaBlock | null>(null)
@@ -41,3 +41,5 @@ export const FullPizza = () => {
     </div>
   )
 }
+
+export default FullPizza

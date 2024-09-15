@@ -19,7 +19,7 @@ body {
 
   @media (max-width: 650px) {
     width: calc(100vw - 30px);
-    margin: 20px auto 20px auto;
+    margin: 20px auto;
   }
 }
 
@@ -77,8 +77,11 @@ body {
 }
 
 .container {
-  width: $container-width;
-  margin: 0 auto;
+  padding: 0 70px;
+
+  @media (max-width: 650px) {
+    padding: 0 30px;
+  }
 
   &--cart {
     max-width: 820px;

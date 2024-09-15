@@ -7,7 +7,7 @@ import { calculateTotalCount } from '@/helpers.ts'
 import { FC } from 'react'
 import { selectCart } from '@/redux/cart/cartSelectors.ts'
 
-export const Cart: FC = () => {
+const Cart: FC = () => {
   const dispatch = useDispatch()
   const { items, totalPrice } = useSelector(selectCart)
   const totalCount = calculateTotalCount(items)
@@ -80,3 +80,5 @@ export const Cart: FC = () => {
     </div>
   );
 };
+
+export default Cart;

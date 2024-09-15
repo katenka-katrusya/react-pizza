@@ -1,9 +1,11 @@
-import App from '@/App.tsx'
+import { lazy, Suspense } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
-import { NotFound } from '@/pages/NotFound/NotFound.tsx'
-import { Cart } from '@/pages/Cart.tsx'
+import App from '@/App.tsx'
+import NotFound from '@/pages/NotFound/NotFound.tsx'
 import { Home } from '@/pages/Home.tsx'
-import { FullPizza } from '@/components/FullPizza.tsx'
+
+const Cart = lazy(() => import('@/pages/Cart.tsx'))
+const FullPizza = lazy(() => import('@//components/FullPizza.tsx'))
 
 export const router = createBrowserRouter([
   {
@@ -17,15 +19,21 @@ export const router = createBrowserRouter([
       },
       {
         path: '/cart',
-        element: <Cart />
+        element:
+          <Suspense fallback={<div className='container'>Идёт загрузка корзины...</div>}>
+            <Cart />
+          </Suspense>
       },
       {
         path: '/pizza/:id',
-        element: <FullPizza />
+        element:
+          <Suspense>
+            <FullPizza />
+          </Suspense>
       },
       {
-        path: "*",
-        element: <NotFound />,
+        path: '*',
+        element: <NotFound />
       }
     ]
   }
