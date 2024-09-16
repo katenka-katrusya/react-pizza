@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { PIZZA_BY_ID } from '@/constants/api.ts'
 import { PizzaBlock } from '@/components/PizzaItem/PizzaBlock.tsx'
 import { TPizzaBlock } from '@/redux/pizza/pizzaTypes.ts'
+import { ButtonBack } from '@/components/ButtonBack.tsx'
 
 const FullPizza = () => {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ const FullPizza = () => {
   return (
     <div className='container'>
       <PizzaBlock {...pizza} />
+      <ButtonBack />
     </div>
   )
 }

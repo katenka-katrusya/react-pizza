@@ -4,6 +4,7 @@
   width: 280px;
   min-height: 465px;
   text-align: center;
+  margin-bottom: 30px;
 
   &__image {
     width: 260px;
@@ -22,6 +23,7 @@
     background-color: #f3f3f3;
     border-radius: 10px;
     padding: 6px;
+    margin-bottom: 20px;
 
     ul {
       display: flex;
@@ -53,7 +55,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 20px;
   }
 
   &__price {

@@ -100,6 +100,38 @@ body {
   }
 }
 
+.go-back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  width: 210px;
+
+  border-color: darken($color: $gray-line, $amount: 10);
+
+  span {
+    color: darken($color: $gray-line, $amount: 20);
+    font-weight: 500;
+  }
+
+  &:hover {
+    background-color: darken($color: $gray-line, $amount: 90);
+    border-color: darken($color: $gray-line, $amount: 90);
+
+    span {
+      color: $gray-line;
+    }
+  }
+
+  svg {
+    margin-right: 12px;
+    path {
+      fill: transparent;
+      stroke-width: 2;
+    }
+  }
+}
+
 .cart {
   width: 80%;
 
@@ -270,9 +302,9 @@ body {
         width: min-content;
       }
 
-      .button {
-        border-color: darken($color: $gray-line, $amount: 10);
-      }
+      //.button {
+      //  border-color: darken($color: $gray-line, $amount: 10);
+      //}
 
       svg {
         transform: rotate(45deg);
@@ -283,6 +315,8 @@ body {
       }
 
       .button {
+        border-color: darken($color: $gray-line, $amount: 10);
+
         svg {
           width: 11.5px;
           height: 11.5px;
@@ -325,36 +359,36 @@ body {
         flex-wrap: wrap;
       }
 
-      .go-back-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 210px;
-
-        border-color: darken($color: $gray-line, $amount: 10);
-
-        span {
-          color: darken($color: $gray-line, $amount: 20);
-          font-weight: 500;
-        }
-
-        &:hover {
-          background-color: darken($color: $gray-line, $amount: 90);
-          border-color: darken($color: $gray-line, $amount: 90);
-
-          span {
-            color: $gray-line;
-          }
-        }
-
-        svg {
-          margin-right: 12px;
-          path {
-            fill: transparent;
-            stroke-width: 2;
-          }
-        }
-      }
+      //.go-back-btn {
+      //  display: flex;
+      //  align-items: center;
+      //  justify-content: center;
+      //  width: 210px;
+      //
+      //  border-color: darken($color: $gray-line, $amount: 10);
+      //
+      //  span {
+      //    color: darken($color: $gray-line, $amount: 20);
+      //    font-weight: 500;
+      //  }
+      //
+      //  &:hover {
+      //    background-color: darken($color: $gray-line, $amount: 90);
+      //    border-color: darken($color: $gray-line, $amount: 90);
+      //
+      //    span {
+      //      color: $gray-line;
+      //    }
+      //  }
+      //
+      //  svg {
+      //    margin-right: 12px;
+      //    path {
+      //      fill: transparent;
+      //      stroke-width: 2;
+      //    }
+      //  }
+      //}
 
       .pay-btn {
         font-size: 16px;

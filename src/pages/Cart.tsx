@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { CartItem } from '@/components/CartItem.tsx'
 import { clearItems } from '@/redux/cart/cartSlice.ts'
@@ -6,6 +5,7 @@ import { CartEmpty } from '@/components/CartEmpty.tsx'
 import { calculateTotalCount } from '@/helpers.ts'
 import { FC } from 'react'
 import { selectCart } from '@/redux/cart/cartSelectors.ts'
+import { ButtonBack } from '@/components/ButtonBack.tsx'
 
 const Cart: FC = () => {
   const dispatch = useDispatch()
@@ -65,15 +65,8 @@ const Cart: FC = () => {
             <span> Сумма заказа: <b>{totalPrice}&nbsp;₽</b> </span>
           </div>
           <div className='cart__bottom-buttons'>
-            <Link to='/' className='button button--outline button--add go-back-btn'>
-              <svg width='8' height='14' viewBox='0 0 8 14' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                <path d='M7 13L1 6.93015L6.86175 1' stroke='#D3D3D3' strokeWidth='1.5' strokeLinecap='round'
-                      strokeLinejoin='round'>
-                </path>
-              </svg>
-              <span>Вернуться назад</span>
-            </Link>
-              <button className='button pay-btn'>Оплатить сейчас</button>
+            <ButtonBack />
+            <button className='button pay-btn'>Оплатить сейчас</button>
           </div>
         </div>
       </div>
